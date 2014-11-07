@@ -1,0 +1,20 @@
+{
+    "main": "../src/index.html",
+    "name": "CesarCipher",
+    "description": "Cesar Cipher by Pavlo Blazhchuk",
+    "version": "0.1.2",
+    "keywords": ["Cesar", "Cipher"],
+    "window": {
+        "title": "Cesar Cipher by Pavlo Blazhchuk",
+        "icon": "icon.png",
+        "toolbar": true,
+        "frame": true,
+        "width": 630,
+        "height": 460,
+        "position": "center",
+        "resizable": false
+    },
+    "webkit": {
+        "plugin": true
+    }
+}
