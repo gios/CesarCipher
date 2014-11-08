@@ -1,14 +1,19 @@
 function cesarDecode(data) {
-    var alphabet = "АБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ",
+    var alphabet = "абвгдеєжзиіїйклмнопрстуфхцчшщьюя0123456789.,;:!?- ",
         decoder = '',
         key = 3,
-        alphabetLength = alphabet.length;
+        alphabetLength = alphabet.length,
+        dataArray = [];
+    
+    for(var number in data) {
+        dataArray.push(data[number]);
+    }
+    
+    console.log(dataArray + " " + alphabetLength);
 
-    console.log(data.length + " " + alphabetLength);
-
-    for (var i = 0; i <= data.length; i++) {
-        for (var j = 0; j <= alphabetLength; j++) {
-            if (data[i] === alphabet[j]) {
+    for (var i = 0; i <= dataArray.length - 1; i++) {
+        for (var j = 0; j <= alphabetLength - 1; j++) {
+            if (dataArray[i] === alphabet[j]) {
                 var decoderFormule = (j - key) % alphabetLength;
                 console.log(decoderFormule);
 
@@ -22,7 +27,5 @@ function cesarDecode(data) {
             }
         }
     }
-
-    console.log(decoder);
     return decoder;
 }

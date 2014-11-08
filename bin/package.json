@@ -10,7 +10,7 @@
         "toolbar": true,
         "frame": true,
         "width": 630,
-        "height": 460,
+        "height": 420,
         "position": "center",
         "resizable": false
     },
