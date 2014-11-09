@@ -4,6 +4,7 @@ function cesarDecode(data, key) {
         decoder = '',
         alphabetLength = alphabet.length,
         dataArray = [],
+        maxFrequency,
         frequency = {
             "о": 0.082,
             "н": 0.070,
@@ -41,6 +42,26 @@ function cesarDecode(data, key) {
 
     // Search frequency of data
     frequencyDataSearch(data);
+
+    function searchMaxFrequency() {
+        var tmp = [];
+        var arr = Object.keys(frequencyData).map(function (key) {
+            tmp.push(frequencyData[key]);
+        });
+        return Math.max.apply(null, tmp);
+    }
+    
+    var maxFrequency = searchMaxFrequency();
+    
+    function maxFrequencyLetter(maxFrequency) {
+        var letter;
+        for(var index in frequencyData) {
+             frequencyData[index] === maxFrequency ? letter = index : null;
+        }
+        return letter;
+    }
+    
+    console.log(maxFrequencyLetter(maxFrequency));
     // END frequency of data
 
 
