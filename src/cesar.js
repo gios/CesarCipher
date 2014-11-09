@@ -55,7 +55,7 @@ WinJS.Application.onready = function () {
                 }
                 that.style.backgroundColor = "blue";
                 that.innerText = "DOWNLOADED!"
-                decodeCesarResult = cesarDecode(data);
+                decodeCesarResult = cesarDecode(data, 3);
             });
         }
         return false;
