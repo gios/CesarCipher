@@ -1,6 +1,6 @@
 function cesarDecode(data) {
     var alphabetWorked = "абвгдеєжзиіїйклмнопрстуфхцчшщьюя ",
-        alphabet = "АБВГДЕЄЖЗИІЙКЛМНОПРСТУФХЦЧШЩЬЮЯабвгдеєжзиійклмнопрстуфхцчшщьюя0123456789.,;:!?- ",
+        alphabet = "АБВГДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯабвгдеєжзиіїйклмнопрстуфхцчшщьюя0123456789.,;:!?- ",
         frequencyLetterPosition,
         decoder = '',
         alphabetLength = alphabet.length,
@@ -98,7 +98,7 @@ function cesarDecode(data) {
                 var decoderFormule = (j - key) % alphabetLength;
 
                 while (decoderFormule < 0)
-                    decoderFormule += alphabetLength + Math.abs(decoderFormule);
+                    decoderFormule += alphabetLength;
 
                 while (decoderFormule >= alphabetLength)
                     decoderFormule -= alphabetLength;
