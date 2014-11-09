@@ -1,6 +1,7 @@
-function cesarDecode(data, key) {
-    var alphabet = "абвгдеєжзиіїйклмнопрстуфхцчшщьюя ",
-        alphabetWorked = "АБВГДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯабвгдеєжзиіїйклмнопрстуфхцчшщьюя0123456789.,;:!?- ",
+function cesarDecode(data) {
+    var alphabetWorked = "абвгдеєжзиіїйклмнопрстуфхцчшщьюя ",
+        alphabet = "АБВГДЕЄЖЗИІЙКЛМНОПРСТУФХЦЧШЩЬЮЯабвгдеєжзиійклмнопрстуфхцчшщьюя0123456789.,;:!?- ",
+        frequencyLetterPosition,
         decoder = '',
         alphabetLength = alphabet.length,
         dataArray = [],
@@ -43,7 +44,7 @@ function cesarDecode(data, key) {
     // Search frequency of data
     frequencyDataSearch(data);
 
-    function searchMaxFrequency() {
+    function searchMaxFrequency(frequencyData) {
         var tmp = [];
         var arr = Object.keys(frequencyData).map(function (key) {
             tmp.push(frequencyData[key]);
@@ -51,18 +52,37 @@ function cesarDecode(data, key) {
         return Math.max.apply(null, tmp);
     }
     
-    var maxFrequency = searchMaxFrequency();
+    var maxFrequency = searchMaxFrequency(frequencyData);
+    var maxFrequencyTable = searchMaxFrequency(frequency);
     
-    function maxFrequencyLetter(maxFrequency) {
+    function maxFrequencyLetter(frequencyData, maxFrequency) {
         var letter;
         for(var index in frequencyData) {
              frequencyData[index] === maxFrequency ? letter = index : null;
         }
         return letter;
     }
-    
-    console.log(maxFrequencyLetter(maxFrequency));
     // END frequency of data
+    
+    // Transform into position letter
+    function transformLetterToPosition(letter) {
+        var position;
+        for (var index = 0; index <= alphabetLength - 1; index++) {
+            alphabet[index] === letter ? position = index : null;
+        }
+        return position;
+    }
+    
+    frequencyLetterPosition = transformLetterToPosition(maxFrequencyLetter(frequencyData, maxFrequency));
+    var frequencyTableLetterPosition = transformLetterToPosition(maxFrequencyLetter(frequency, maxFrequencyTable));
+    console.log(frequencyLetterPosition);
+    console.log(frequencyTableLetterPosition);
+    // END Transform into position letter
+    
+    // Search key
+    var key = frequencyTableLetterPosition - frequencyLetterPosition - 1;
+    console.log(key);
+    // END Search key
 
 
     // Data to Array
