@@ -71,3 +71,9 @@ body {
 #shareButton {
     margin: 20px 0px 0px 5px;
 }
+#cesarFlyout button {
+    position: absolute;
+    margin: 20px;
+    top: 0px;
+    left: 0px;
+}

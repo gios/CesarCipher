@@ -3,7 +3,9 @@ var path = require('path');
 
 WinJS.Application.onready = function () {
     "use strict";
-    var decodeCesarResult;
+    var decodeCesarResult,
+        iterationOfLandslide = 0,
+        iterationOfLandslideFunction;
     
     // DOM variable
     var holder = document.getElementById("holder"),
@@ -55,7 +57,7 @@ WinJS.Application.onready = function () {
                 }
                 that.style.backgroundColor = "blue";
                 that.innerText = "DOWNLOADED!"
-                decodeCesarResult = cesarDecode(data);
+                iterationOfLandslideFunction = cesarDecode(data);
             });
         }
         return false;
@@ -64,11 +66,20 @@ WinJS.Application.onready = function () {
     
     // Cesar Decoder Event
     function cesarDecodeEvent(evt) {
+        iterationOfLandslide++;
+        try {
+            decodeCesarResult = iterationOfLandslideFunction(iterationOfLandslide);
+        } catch(e) {
+            console.log(e);
+        }
         if(typeof decodeCesarResult === "undefined") decodeCesarResult = "Error! You don't download a file into this system. Try later.";
-        document.querySelector("#cesarFlyout div").innerText = decodeCesarResult;
+        document.querySelector("#cesarFlyout div:nth-child(1)").innerText = decodeCesarResult;
         document.getElementById("cesarFlyout").winControl.show(target1);
+//        document.getElementById("cesarFlyout").winControl.dispose();
+        document.getElementById("cesarFlyout").winControl.addEventListener("beforehide", function() {
+            document.querySelector("#cesarFlyout div:nth-child(1)").innerText = decodeCesarResult;
+        }, false);
     }
-    
     target1.addEventListener("mouseup", cesarDecodeEvent, false);
     // END Cesar Decoder Event
 

@@ -2,7 +2,8 @@ function cesarDecode(data) {
     var alphabetWorked = "абвгдеєжзиіїйклмнопрстуфхцчшщьюя ",
         alphabet = "АБВГДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯабвгдеєжзиіїйклмнопрстуфхцчшщьюя0123456789.,;:!?- ",
         frequencyLetterPosition,
-        decoder = '',
+        frequencyTableLetterPosition,
+        key,
         alphabetLength = alphabet.length,
         dataArray = [],
         maxFrequency,
@@ -51,19 +52,25 @@ function cesarDecode(data) {
         });
         return Math.max.apply(null, tmp);
     }
-    
+
     var maxFrequency = searchMaxFrequency(frequencyData);
     var maxFrequencyTable = searchMaxFrequency(frequency);
-    
+
     function maxFrequencyLetter(frequencyData, maxFrequency) {
         var letter;
-        for(var index in frequencyData) {
-             frequencyData[index] === maxFrequency ? letter = index : null;
+        for (var index in frequencyData) {
+            frequencyData[index] === maxFrequency ? letter = index : null;
         }
         return letter;
     }
     // END frequency of data
-    
+
+    // Data to Array
+    for (var number in data) {
+        dataArray.push(data[number]);
+    }
+    // END Data to Array
+
     // Transform into position letter
     function transformLetterToPosition(letter) {
         var position;
@@ -72,40 +79,38 @@ function cesarDecode(data) {
         }
         return position;
     }
-    
-    frequencyLetterPosition = transformLetterToPosition(maxFrequencyLetter(frequencyData, maxFrequency));
-    var frequencyTableLetterPosition = transformLetterToPosition(maxFrequencyLetter(frequency, maxFrequencyTable));
-    console.log(frequencyLetterPosition);
-    console.log(frequencyTableLetterPosition);
-    // END Transform into position letter
-    
-    // Search key
-    var key = frequencyTableLetterPosition - frequencyLetterPosition - 1;
-    console.log(key);
-    // END Search key
 
+    function iterationOfLandslideFunction(iterationOfLandslide) {
+        var decoder = '';
 
-    // Data to Array
-    for (var number in data) {
-        dataArray.push(data[number]);
-    }
-    // END Data to Array
+        frequencyLetterPosition = transformLetterToPosition(maxFrequencyLetter(frequencyData, maxFrequency));
+        frequencyTableLetterPosition = transformLetterToPosition(maxFrequencyLetter(frequency, maxFrequencyTable));
+        console.log(frequencyLetterPosition);
+        console.log(frequencyTableLetterPosition);
+        // END Transform into position letter
 
-    for (var i = 0; i <= dataArray.length - 1; i++) {
-        for (var j = 0; j <= alphabetLength - 1; j++) {
-            if (dataArray[i] === alphabet[j]) {
+        // Search key
+        key = frequencyTableLetterPosition - frequencyLetterPosition + iterationOfLandslide;
+        console.log("Key = " + key);
+        // END Search key
 
-                var decoderFormule = (j - key) % alphabetLength;
+        for (var i = 0; i <= dataArray.length - 1; i++) {
+            for (var j = 0; j <= alphabetLength - 1; j++) {
+                if (dataArray[i] === alphabet[j]) {
 
-                while (decoderFormule < 0)
-                    decoderFormule += alphabetLength;
+                    var decoderFormule = (j - key) % alphabetLength;
 
-                while (decoderFormule >= alphabetLength)
-                    decoderFormule -= alphabetLength;
+                    while (decoderFormule < 0)
+                        decoderFormule += alphabetLength;
 
-                decoder = decoder + alphabet[decoderFormule];
+                    while (decoderFormule >= alphabetLength)
+                        decoderFormule -= alphabetLength;
+
+                    decoder = decoder + alphabet[decoderFormule];
+                }
             }
         }
+        return decoder;
     }
-    return decoder;
+    return iterationOfLandslideFunction;
 }
