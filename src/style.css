@@ -1,5 +1,10 @@
+@font-face {
+  font-family: 'Vollkorn';
+  src: url('lib/fonts/Vollkorn-Regular.ttf');
+}
 body {
     overflow: hidden;
+    font-family: Vollkorn, sans-serif, serif;
 }
 .small {
     width: 200px;

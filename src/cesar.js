@@ -4,7 +4,7 @@ var path = require('path');
 WinJS.Application.onready = function () {
     "use strict";
     var decodeCesarResult,
-        iterationOfLandslide = -1,
+        iterationOfLandslide = 0,
         iterationOfLandslideFunction,
         key;
     
@@ -67,10 +67,10 @@ WinJS.Application.onready = function () {
     
     // Cesar Decoder Event
     function cesarDecodeEvent(evt) {
-        iterationOfLandslide++;
         try {
             decodeCesarResult = iterationOfLandslideFunction(iterationOfLandslide).decoder;
             key = iterationOfLandslideFunction(iterationOfLandslide).key;
+            iterationOfLandslide++;
         } catch(e) {
             console.log(e);
         }
