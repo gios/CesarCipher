@@ -1,6 +1,6 @@
 function cesarDecode(data) {
     var alphabetWorked = "абвгдеєжзиіїйклмнопрстуфхцчшщьюя ",
-        alphabet = "АБВГДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯабвгдеєжзиіїйклмнопрстуфхцчшщьюя0123456789.,;:!?- ",
+        alphabet = "АБВГДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯабвгдеєжзиіїйклмнопрстуфхцчшщьюя0123456789.,;:!?-  ",
         frequencyLetterPosition,
         frequencyTableLetterPosition,
         key,
@@ -85,12 +85,12 @@ function cesarDecode(data) {
 
         frequencyLetterPosition = transformLetterToPosition(maxFrequencyLetter(frequencyData, maxFrequency));
         frequencyTableLetterPosition = transformLetterToPosition(maxFrequencyLetter(frequency, maxFrequencyTable));
-        console.log(frequencyLetterPosition);
-        console.log(frequencyTableLetterPosition);
+        console.log(maxFrequencyLetter(frequencyData, maxFrequency));
+        console.log(maxFrequencyLetter(frequency, maxFrequencyTable));
         // END Transform into position letter
 
         // Search key
-        key = frequencyTableLetterPosition - frequencyLetterPosition + iterationOfLandslide;
+        key = frequencyLetterPosition - frequencyTableLetterPosition + iterationOfLandslide;
         console.log("Key = " + key);
         // END Search key
 
@@ -99,6 +99,7 @@ function cesarDecode(data) {
                 if (dataArray[i] === alphabet[j]) {
 
                     var decoderFormule = (j - key) % alphabetLength;
+                    if(decoderFormule === -1) {decoderFormule = 32}
 
                     while (decoderFormule < 0)
                         decoderFormule += alphabetLength;
@@ -110,7 +111,7 @@ function cesarDecode(data) {
                 }
             }
         }
-        return decoder;
+        return {decoder: decoder, key: key};
     }
     return iterationOfLandslideFunction;
 }
